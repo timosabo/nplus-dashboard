@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sustainability Strategies Dashboard — Pine Country Lane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Antonio:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --earth:#2e1e0c; --adobe:#a88858; --bark:#4a2e10; --corten:#c9942a; --sage:#7a9060; --dust:#9a8c7a;
+  --cream:#f5f0e8; --bg:#faf7f2; --card:#ffffff; --line:#e6ddd0; --track:#eee3d3;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--earth);font-family:'Space Mono',ui-monospace,Menlo,monospace;font-size:13px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto}
+header{background:var(--earth);color:var(--cream);padding:24px 28px 0}
+.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--adobe)}
+h1{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:34px;line-height:1.1;margin:4px 0 2px;letter-spacing:.5px}
+.proj{font-size:13px;color:#d8cdb9}
+.proj small{display:block;color:var(--dust);font-size:11px;margin-top:2px}
+.draftpill{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--corten);color:var(--corten);border-radius:10px;padding:2px 9px}
+.head-top{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-bottom:18px}
+.tiles{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.tile{text-align:center;min-width:92px}
+.circle{width:68px;height:68px;border-radius:50%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff}
+.circle b{font-family:'Antonio',sans-serif;font-size:24px;line-height:1}
+.circle i{font-style:normal;font-size:9px;opacity:.8}
+.tile .lab{font-size:9.5px;color:var(--dust);margin-top:5px;line-height:1.3}
+.tile .sub{font-size:9px;color:var(--adobe);line-height:1.3;margin-top:2px}
+.costbox{min-width:150px;text-align:center}
+.costbox .big{font-family:'Antonio',sans-serif;font-size:24px;color:var(--cream);line-height:1.1}
+.costbox .rng{font-size:10px;color:var(--adobe)}
+.carbbox{min-width:250px;max-width:290px;text-align:left}
+.carbbox .big{font-family:'Antonio',sans-serif;font-size:24px;color:var(--cream);line-height:1.1}
+.carbbox .big small{font-family:'Space Mono',monospace;font-size:11px;color:var(--adobe);margin-left:4px}
+.carbbox .lab{font-size:9.5px;color:var(--dust);margin-top:2px;line-height:1.3}
+.cbar{position:relative;height:6px;background:rgba(255,255,255,.14);border-radius:3px;margin:9px 0 3px}
+.cbar i{position:absolute;left:0;top:0;height:100%;background:var(--sage);border-radius:3px;transition:width .35s}
+.cbar b{position:absolute;top:-3px;width:3px;height:12px;background:var(--cream);border-radius:1px;transition:left .35s;margin-left:-1px}
+.cends{display:flex;justify-content:space-between;font-size:9px;color:var(--adobe)}
+.carbbox .sub{font-size:9.5px;color:#d8cdb9;line-height:1.35;margin-top:5px}
+.carbbox .sub2{font-size:9px;color:var(--dust);line-height:1.35;margin-top:2px}
+.lensbox{background:rgba(255,255,255,.07);border-radius:6px 6px 0 0;padding:12px 16px}
+.lensbox .t{font-size:10px;letter-spacing:1px;color:var(--adobe);margin-bottom:8px;text-transform:uppercase}
+.lensgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
+.lrow{display:flex;align-items:center;gap:8px}
+.lrow .n{width:190px;font-size:11px;color:var(--cream);flex-shrink:0;line-height:1.25}
+.lrow .n small{display:block;font-size:9px;color:var(--adobe)}
+.lrow .tr{flex:1;height:6px;background:rgba(255,255,255,.12);border-radius:3px}
+.lrow .tr div{height:100%;border-radius:3px;transition:width .35s}
+.lrow .v{width:30px;text-align:right;font-weight:700;font-size:12px;color:var(--cream)}
+.tabs{background:#f0ebe3;border-bottom:1px solid #ddd;padding:0 16px;display:flex;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:12px;padding:11px 18px;border:0;background:transparent;color:var(--dust);cursor:pointer;border-bottom:3px solid transparent}
+.tabs button.on{color:var(--earth);font-weight:700;border-bottom-color:var(--corten)}
+main{padding:20px 24px}
+.legend{background:var(--cream);border:1px solid var(--line);border-left:4px solid var(--sage);border-radius:6px;padding:12px 16px;margin-bottom:18px;font-size:12px;color:var(--bark)}
+.legend .row{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:6px;align-items:center}
+.chip{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:10px;padding:2px 8px;color:#fff;white-space:nowrap}
+.chip.t1{background:var(--sage)} .chip.t2{background:var(--corten)} .chip.t3{background:var(--bark)}
+.chip.approved{background:var(--sage)} .chip.review{background:var(--corten)}
+.chip.n0,.chip.nm,.chip.np,.chip.npp{background:var(--dust)} .chip.np{background:var(--corten)} .chip.npp{background:var(--sage)} .chip.nm{background:var(--dust)} .chip.n0{background:var(--adobe)}
+.chip.wt,.chip.sigc{background:transparent;color:var(--bark);border:1px solid var(--adobe);font-weight:400;text-transform:none;letter-spacing:0}
+.group .gscore{font-size:11px;color:var(--bark);margin-top:6px}
+.chip.rev{background:transparent;color:var(--bark);border:1px solid var(--adobe)}
+.chip.draft{background:transparent;color:var(--corten);border:1px dashed var(--corten)}
+.section-h{font-family:'Antonio',sans-serif;font-weight:700;font-size:20px;border-bottom:3px solid var(--adobe);padding-bottom:4px;margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+.section-h .ct{font-family:'Space Mono',monospace;font-size:10px;background:var(--adobe);color:#fff;border-radius:10px;padding:2px 8px;font-weight:700}
+.group{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:hidden}
+.ghead{padding:12px 16px 10px;border-bottom:1px solid var(--line);background:#fcfaf6}
+.ghead .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.gname{font-family:'Antonio',sans-serif;font-weight:700;font-size:17px}
+.gsub{font-size:11px;color:var(--dust)}
+.gblurb{font-size:12px;color:var(--bark);margin-top:6px}
+.cols{display:grid;grid-template-columns:30px 1fr 118px 52px 112px 150px;gap:8px;padding:8px 16px 4px;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--dust)}
+.opt{border-top:1px solid #efe8dc}
+.optmain{display:grid;grid-template-columns:30px 1fr 118px 52px 112px 150px;gap:8px;align-items:center;padding:9px 16px;cursor:pointer}
+.opt.sel{background:var(--cream);box-shadow:inset 4px 0 0 var(--corten)}
+.opt:not(.sel) .optmain{opacity:.78}
+.ctl{width:18px;height:18px;border:2px solid var(--adobe);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ctl.radio{border-radius:50%} .ctl.check{border-radius:4px}
+.opt.sel .ctl{background:var(--sage);border-color:var(--sage)}
+.opt.sel .ctl.radio::after{content:"";width:6px;height:6px;border-radius:50%;background:#fff}
+.opt.sel .ctl.check::after{content:"✓";color:#fff;font-size:12px;line-height:1;font-weight:700}
+.oname{font-weight:700;font-size:13px}
+.ometa{display:flex;gap:6px;align-items:center;margin-top:2px;flex-wrap:wrap}
+.lenses{display:flex;flex-direction:column;gap:2px}
+.lens{display:flex;align-items:center;gap:4px}
+.lens .d{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.lens .b{flex:1;height:4px;background:#e8e0d4;border-radius:2px}
+.lens .b i{display:block;height:100%;border-radius:2px}
+.lens .na{flex:1;font-size:8px;letter-spacing:.5px;color:var(--dust);border:1px solid #d8cdb9;border-radius:6px;text-align:center;line-height:1.2;cursor:help}
+.lens .n{width:10px;font-size:9px;text-align:right;color:var(--bark);font-weight:700}
+.score{text-align:center}
+.score .num{font-family:'Antonio',sans-serif;font-size:22px;line-height:1}
+.score .of{font-size:9px;color:var(--dust)}
+.score .na{font-size:11px;color:var(--dust)}
+.score .inc{font-size:9px;color:var(--corten)}
+.more .nawhy{margin-top:6px;color:var(--dust);font-size:11px}
+.cost{text-align:center}
+.cost .m{font-weight:700;font-size:13px}
+.cost .r{font-size:9.5px;color:var(--dust);line-height:1.3}
+.cost .tx{font-size:11px;color:var(--dust)}
+.cost .pt{font-size:9px;color:var(--corten)}
+.carb{text-align:center;font-size:11px}
+.carb .m{font-weight:700;font-size:13px;color:var(--sage)}
+.carb .r{font-size:9.5px;color:var(--dust)}
+.carb .tx{color:var(--dust);font-size:10.5px;line-height:1.3}
+.more{display:none;padding:2px 16px 14px 54px;font-size:12px;color:var(--bark);line-height:1.65}
+.opt.open .more{display:block}
+.more .tag{color:var(--dust);font-size:10.5px;margin-top:6px}
+.exp{font-size:9px;color:var(--adobe);margin-left:auto;padding-left:6px;cursor:pointer;user-select:none}
+.note{margin-top:18px;padding:14px 16px;background:#ede8e0;border-radius:6px;font-size:11px;color:var(--dust);line-height:1.8}
+.note strong{color:var(--bark)}
+a{color:var(--corten);font-weight:700}
+.card{background:var(--cream);border:1px solid var(--line);border-left:4px solid var(--adobe);border-radius:6px;padding:14px 16px;margin-bottom:12px;font-size:12px;color:var(--bark);line-height:1.7}
+.card h3{margin:0 0 6px;font-family:'Antonio',sans-serif;font-size:16px;color:var(--earth)}
+.card ul{margin:6px 0 0 18px;padding:0}
+footer{border-top:1px solid #ddd;padding:16px 24px;background:#ede8e0;text-align:center;font-size:11px;color:var(--dust)}
+footer div+div{font-size:10px;color:#b8b0a4;margin-top:4px}
+.hide{display:none}
+@media (max-width:760px){
+  header{padding:18px 16px 0} h1{font-size:27px} main{padding:16px 12px}
+  .cols{display:none}
+  .optmain{grid-template-columns:28px 1fr 52px;grid-template-areas:"c n s" ". l l" ". co ca"}
+  .optmain>.ctl{grid-area:c} .optmain>.nm{grid-area:n} .optmain>.lenses{grid-area:l} .optmain>.score{grid-area:s}
+  .optmain>.cost{grid-area:co;text-align:left} .optmain>.carb{grid-area:ca;text-align:left}
+  .lensgrid{grid-template-columns:1fr} .lrow .n{width:130px}
+  .more{padding-left:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="head-top">
+    <div>
+      <div class="eyebrow">SALT Workshop · [n+] Net-Positive Design</div>
+      <h1>Sustainability Strategies Dashboard</h1>
+      <div class="proj" id="projName"></div>
+      <span class="draftpill">Design Development · Draft for discussion</span>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </div>
+  <div class="lensbox">
+    <div class="t">Combined performance — all selected strategies · average score per lens, out of 3</div>
+    <div class="lensgrid" id="lensgrid"></div>
+  </div>
+</header>
+<div class="tabs" id="tabs">
+  <button data-t="strat" class="on">Strategies</button>
+  <button data-t="read">How to read this</button>
+  <button data-t="src">Sources &amp; notes</button>
+</div>
+<main>
+  <section id="tab-strat"></section>
+  <section id="tab-read" class="hide"></section>
+  <section id="tab-src" class="hide"></section>
+</main>
+<footer>
+  <div>SALT Workshop, Ltd. &nbsp;·&nbsp; <a href="https://saltworkshop.com" target="_blank" rel="noreferrer" style="font-weight:400">saltworkshop.com</a> &nbsp;·&nbsp; [n+] Net-Positive Design</div>
+  <div>An interactive design tool. Figures are early estimates from Design Development analysis and will be refined with quotes and product data. Nothing here changes the drawings until a strategy is approved.</div>
+</footer>
+</div>
+
+<script>
+// PCL [n+] dashboard data — SP-3 trial. Scores 0-3 per lens (L1 Energy & Carbon, L2 Longevity & Circular,
+// L3 Regenerative, L4 Biophilic) = /12. Scores are native 0-3 from the delivered cut sheets (stone, windows, cladding); conversion bands where used: <4->0, 4-5.9->1, 6-7.9->2, 8+->3.
+// Scale note: the 0-12 total and 0-3 lens scores are PCL-specific; the SALT library scores 0-10 per lens.
+// A lens score is a number 0-3, {na:true, why:"..."} when the lens cannot apply to the item (decided at library level, never here),
+// or null when there is no data yet (not the same as N/A).
+// draft:true = SALT draft score not yet reviewed. cost = rough unquoted midpoint with range (USD).
+// carbonT = embodied carbon A1-A3 estimate in t CO2e (summable). carbonText = display text for per-area / unquantified items.
+const PROJECT = {
+  name: "Pine Country Lane Remodel & Addition",
+  place: "13885 Pine Country Lane, Conifer, CO  ·  Project 24-05",
+  clients: "Tawny Cypress & Tom Dillon, with Blue Leaf Design Build",
+  folderUrl: "https://drive.google.com/drive/folders/1JWEitQZYkkY92-OvLSJP7VSznKzc8Ij-?usp=drive_link",
+  // Solar comparison for the carbon tile (per-project settings).
+  solar: { panels:25, panelKW:0.4, kWhPerKWyr:1662, kgPerKWh:0.4726,
+           arrayLabel:"10 kW rooftop array",
+           basis:"400 W panels, 1,662 kWh per kW per year (PVWatts, fixed roof mount, ballpark), regional grid average of 0.47 kg CO2e per kWh (EPA eGRID2023, Rocky Mountain region)." }
+};
+
+// L1 (Energy & Carbon) does not apply to landscape/site strategies (library-level decision, Tim, 2026-10-12).
+const NA_SITE = {na:true, why:"Landscape and site strategies are not scored on building energy and carbon."};
+
+const GROUPS = [
+  // ───────────── APPROVED ─────────────
+  { id:"glazing", status:"approved", mode:"one", defaults:["glz-b"],
+    name:"South glazing + louver system", sub:"Great room and dining, south elevation (A202)",
+    blurb:"Compares today's windows, new glazing without shading, and new glazing with the horizontal louver system.",
+    options:[
+      { id:"glz-a", name:"Existing windows, as-is", scores:[0,0,0,0],
+        costText:"no new cost", carbonText:"not quantified",
+        desc:"Year-2000 double-pane glass, about 141 SF on the south side. Overheating forces sheets over the windows, which blocks the view. Estimated glazing energy cost about $142 a year." },
+      { id:"glz-c", name:"New glazing, no louvers", scores:[1,2,0,1],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"About 73% more glass at SHGC 0.40 with no shading. Summer solar load comes out roughly 21% worse than today, which risks recreating the sheets-on-windows problem. Estimated about $203 a year." },
+      { id:"glz-b", name:"New glazing + horizontal louvers", scores:[3,3,2,3],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Triple-pane glass with horizontal louvers cuts summer solar load about 94% versus today and nearly doubles winter solar gain, with the Pikes Peak view kept clear. Estimated about $43 a year in glazing energy cost; the louvers alone account for about $159 a year. Source: June 23, 2026 glazing and shading analysis." }
+    ]},
+  { id:"stone", status:"approved", mode:"one", defaults:["stone-t"],
+    name:"Exterior stone veneer [M1]", sub:"Telluride Stone, regional Colorado sandstone",
+    blurb:"The stone chosen for the exterior.",
+    options:[
+      { id:"stone-t", name:"Telluride Stone veneer", scores:[2,3,0,2],
+        costText:"not yet priced", carbonText:"~1.5 kg CO₂e per sf (range 1 to 2)",
+        desc:"Mortarless drystack veneer from a San Miguel County quarry about 450 miles away. Expected to last 100 to 200+ years and can be taken apart and reused. Carbon is cradle-to-site and about half is trucking. The regenerative score is conditional until the quarry confirms a restoration plan." }
+    ]},
+  { id:"airseal", status:"approved", mode:"many", defaults:["air-1","air-2"],
+    name:"Existing envelope: air sealing", sub:"Using the openings already planned: windows, siding, roof, eaves",
+    blurb:"Seal each leak path while it is already open. Tier 2 builds on Tier 1.",
+    options:[
+      { id:"air-1", name:"Tier 1: seal everything already being opened", tier:1, scores:[3,2,2,2],
+        cost:{mid:6250, lo:3500, hi:9000}, carbonText:"not quantified",
+        desc:"Rough openings at about 42 windows and 26 doors, penetrations, cracks and joints, roof-to-wall laps, eave and top-plate junctions, garage separation, a combustion-safety test before and after, and a final blower-door test. Cost includes about $750 for the final test." },
+      { id:"air-2", name:"Tier 2: continuous membrane under new siding", tier:2, scores:[3,2,1,1],
+        cost:{mid:8550, lo:4900, hi:12200}, carbonText:"not quantified",
+        desc:"A vapor-open membrane under about 2,444 SF of new siding, plus roof-plane sealing where insulation is removed and a rough-in leak-finding test. The scores shown are for this tier's added scope. The existing wall's drying path needs checking before it is final." }
+    ]},
+
+  // ───────────── FOR REVIEW ─────────────
+  { id:"newroof", cshort:"new roofs", status:"review", mode:"one", defaults:["nr-2"],
+    name:"New roofs: insulation (R2 + R3, 2,970 SF)", sub:"11-7/8\" i-joist cavity, target R-60, unvented",
+    blurb:"Three ways to reach R-60 in the new roofs. Option 2 is what the permit set shows today.",
+    options:[
+      { id:"nr-1", name:"1. Full-cavity closed-cell foam", tier:1, scores:[2,2,1,2],
+        cost:{mid:17800, lo:15600, hi:20000}, carbonT:{mid:30.8, lo:25.7, hi:35.8},
+        desc:"One trade and the simplest sequence. Highest foam volume and highest embodied carbon. No drying path if the deck ever leaks." },
+      { id:"nr-2", name:"2. R-15 rigid board above + R-45 foam below (as drawn)", tier:2, scores:[3,3,2,2],
+        cost:{mid:16700, lo:14300, hi:19200}, carbonT:{mid:26.5, lo:22.2, hi:30.7},
+        desc:"Board above the deck removes thermal bridging and gives a second drying path. Needs two trades and long structural screws through strapping. About the same cost as Option 1." },
+      { id:"nr-3", name:"3. R-30 rigid board above + R-30 cellulose below", tier:3, scores:[3,2,3,2],
+        cost:{mid:13400, lo:9800, hi:17100}, carbonT:{mid:7.4, lo:5.9, hi:8.9},
+        desc:"Cuts fossil embodied carbon by roughly 70 to 75% and removes spray foam from the roof. Asks the most: a thicker roof (about 7 inches added above the deck), three scopes of work, and an airtight interior layer." }
+    ]},
+  { id:"exroof", cshort:"existing roofs", status:"review", mode:"one", defaults:["er-2"],
+    name:"Existing roofs: insulation (R1, 2,538 SF)", sub:"1998 cavity insulation retained; whole-roof figures",
+    blurb:"The existing insulation stays. The question is how much continuous insulation goes on top.",
+    options:[
+      { id:"er-1", name:"1. Leave as is", tier:1, scores:[1,2,3,2],
+        cost:{mid:575, lo:400, hi:750}, carbonT:{mid:0, lo:0, hi:0},
+        desc:"No new roof insulation beyond topping up the attic floor to R-60. Effective whole-roof R about 18 to 26." },
+      { id:"er-2", name:"2. Add R-15 continuous insulation (as drawn)", tier:2, scores:[2,2,2,2],
+        cost:{mid:4699, lo:3699, hi:5699}, carbonT:{mid:2.9, lo:2.5, hi:3.2},
+        desc:"3-inch board over the existing deck with strapping. Effective whole-roof R about 34 to 41. May leave the deck slightly under the safe moisture ratio without the extra inch or a vent path." },
+      { id:"er-3", name:"3. Add R-20 continuous insulation", tier:2, scores:[3,3,2,2],
+        cost:{mid:5466, lo:4357, hi:6576}, carbonT:{mid:3.7, lo:3.2, hi:4.1},
+        desc:"4-inch board. The strongest upgrade, and the one that comes at or near the safe moisture ratio (continuous insulation about 47 to 56% of the total, against a 50% target). Effective whole-roof R about 39 to 46." }
+    ]},
+  { id:"walls", cshort:"new walls", status:"review", mode:"one", defaults:["w-s1"],
+    name:"New walls: cavity + continuous insulation", sub:"New 2x6 walls W1/W2, about 1,751 SF (no SIPs)",
+    blurb:"Fiber insulation in the cavity plus a board outside the sheathing meets the code row. Costs shown are for the cavity only; the outside board still needs a quote.",
+    options:[
+      { id:"w-s1", name:"S1. Dense-pack cellulose + mineral wool board", tier:2, scores:[3,3,2,1],
+        cost:{mid:2015, lo:1400, hi:2630, partial:true}, carbonT:{mid:1.0, lo:1.0, hi:1.0},
+        desc:"Whole-wall R about 22. Non-combustible board suits the wildfire standards. Needs the insulation sub to confirm an installed R-20 or better in the 5.5-inch cavity." },
+      { id:"w-s2", name:"S2. Mineral wool batt + mineral wool board", tier:2, scores:[2,3,2,1],
+        cost:{mid:3590, lo:2800, hi:4380, partial:true}, carbonT:{mid:2.6, lo:1.9, hi:3.3},
+        desc:"Whole-wall R about 24. Passes both the code row and the R-21 on the wall key." },
+      { id:"w-s3", name:"S3. Mineral wool batt + wood fiber board", tier:2, scores:[2,3,3,1],
+        cost:{mid:3590, lo:2800, hi:4380, partial:true}, carbonText:"awaiting product data",
+        desc:"Carbon-storing board outside. Supply and fire acceptance under the wildfire guidelines still need checking." },
+      { id:"w-s4", name:"S4. Hemp or wool batt + wood fiber board", tier:3, scores:[2,2,3,1],
+        costText:"needs quote", carbonText:"awaiting product data",
+        desc:"The most regenerative materials. Notable extra cost and sourcing effort." },
+      { id:"w-a", name:"Reference: full-depth closed-cell foam", tier:2, scores:[2,2,1,1],
+        cost:{mid:6655, lo:5080, hi:8230}, carbonT:{mid:4.3, lo:4.3, hi:4.3},
+        desc:"Is its own air barrier and reaches the code row without added thickness. Combustible, with the highest carbon of the group. Cost shown net of an air-barrier offset." },
+      { id:"w-b", name:"Reference: flash and batt", tier:2, scores:[2,2,1,1],
+        cost:{mid:5600, lo:4550, hi:6650}, carbonT:{mid:2.9, lo:2.9, hi:2.9},
+        desc:"A thin foam layer plus cellulose. Only just meets the code row and needs two trades." }
+    ]},
+  { id:"cladding", status:"review", mode:"one", defaults:[],
+    name:"Exterior cladding: fire-resistant nickel gap", sub:"Wood or composite siding that meets the wildfire code",
+    blurb:"No selection yet. All three can meet the wildfire code; the look differs. Scores are from the revised cut sheet.",
+    options:[
+      { id:"cl-a", name:"A. Mataverde ThermaWood FR (hemlock)", scores:[2,2,1,3],
+        cost:{perSf:"$12 to $18 per sf"}, carbonText:"~ −17 kg CO₂e per m² (wood stores carbon)",
+        desc:"True nickel gap, calm honey-toned grain. Thermally modified, then fire-retardant treated. Warranty not yet confirmed." },
+      { id:"cl-b", name:"B. Arbor Wood SaferWood FR (pine)", scores:[2,2,1,3],
+        cost:{perSf:"$11 to $16 per sf"}, carbonText:"~ −17 kg CO₂e per m² (wood stores carbon)",
+        desc:"Same nickel gap profile with a bolder, high-contrast grain. 20-year warranty listed by the maker." },
+      { id:"cl-c", name:"C. James Hardie fiber cement", scores:[0,3,0,0],
+        cost:{perSf:"$5 to $15 per sf"}, carbonText:"~ +31 kg CO₂e per m²",
+        desc:"Non-combustible and durable, with the simplest path through the wildfire code. A true nickel gap panel is not yet confirmed, and cement is carbon-heavy." }
+    ]},
+  { id:"windows", status:"review", revisited:true, mode:"one", defaults:["win-m"],
+    name:"Windows (about 48 units)", sub:"Aluminum-clad wood vs. fiberglass-uPVC vs. triple-pane",
+    blurb:"Being revisited. This comparison is from July and will be updated with quotes and the glazing recheck. Carbon figures are placeholders.",
+    options:[
+      { id:"win-m", name:"Marvin Ultimate Casement (as scheduled)", scores:[2,2,1,2],
+        costText:"not yet priced", carbonText:"~58 kg CO₂e per m² (placeholder)",
+        desc:"Currently on the window schedule at U-0.28. Proven in mountain use. Regional sourcing, about 850 miles." },
+      { id:"win-a", name:"Alpen Tyrol Edge / Contour", scores:[3,2,2,2],
+        costText:"not yet priced", carbonText:"~65 kg CO₂e per m² (placeholder)",
+        desc:"Fiberglass-reinforced uPVC, triple-pane, made in Louisville, CO. U-0.12 operable, 0.09 fixed. The only option inside a 500-mile local radius." },
+      { id:"win-k", name:"Kolbe Ultra EP", scores:[2,2,2,3],
+        costText:"not yet priced", carbonText:"~72 kg CO₂e per m² (placeholder)",
+        desc:"Triple-pane aluminum-clad wood with FSC-certified wood available. U-0.19 standard. Regional sourcing, about 850 miles." }
+    ]},
+  { id:"mgw", status:"review", revisited:true, mode:"one", defaults:["mgw-n"],
+    name:"Moving glass walls (NW102, NW103)", sub:"South facade, 155 SF total",
+    blurb:"Being revisited. The louvered shading on A202 is confirmed, so the next step is to find the best south-facing SHGC and then ask each manufacturer whether they can produce it. Scores are from the updated moving glass wall comparison; prices are not yet available for the alternatives.",
+    options:[
+      { id:"mgw-n", name:"NanaWall NW Aluminum 640L (as specified)", scores:[2,1,1,2],
+        cost:{ref:43493, refNote:"Quote Q-89022, Apr 9, 2026, incl. tax. Lapsed; shown for reference, not in the total"}, carbonText:"not quantified",
+        desc:"The current specification, from the Bay Area. Listed performance is U 0.26 and SHGC 0.17 (NFRC). Quote Q-89022 ($43,493 including tax, April 9, 2026) assumed installation below 2,500 ft with air-filled glass and capillary tubes. This site is at about 8,500 ft, so the NanaWall rep needs to confirm U and SHGC at altitude. The quote has lapsed; a refresh is Blue Leaf's call, since work has not started." },
+      { id:"mgw-p", name:"Panda Windows & Doors: aluminum", scores:[2,1,2,2],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Las Vegas maker with a Colorado dealer in Lakewood. The all-aluminum frame." },
+      { id:"mgw-pw", name:"Panda Windows & Doors: wood-clad", scores:[3,2,2,3],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"The aluminum/wood-clad frame from the same maker: warmer to look at and to touch, and the highest-scoring moving wall in this comparison." },
+      { id:"mgw-w", name:"Western Window Systems Series 7950", scores:[2,1,2,2],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Phoenix maker. Upgraded glass reaches U-0.20 on the folding-door line." }
+    ]},
+  { id:"lighting", status:"review", mode:"many", defaults:["lt-1","lt-2"],
+    name:"Dark-sky + hearth lighting", sub:"Three-deck stack, south glass at night",
+    blurb:"Shielded, warm, dimmable lighting that does not glare down onto the lower decks. Each layer is a separate choice.",
+    options:[
+      { id:"lt-1", name:"Core package: shielded, warm, low-lumen fixtures", tier:1, scores:[1,2,3,3],
+        cost:{mid:2800, lo:1400, hi:4200}, carbonText:"not quantified",
+        desc:"About 28 fully shielded fixtures at 2700K or lower (2200K on the decks). Roughly 400 to 1,200 lumens at the default evening scene." },
+      { id:"lt-2", name:"Per-zone switching, dimming, scenes + time clock", tier:2, scores:[1,1,2,3],
+        cost:{mid:2750, lo:1500, hi:4000}, carbonText:"not quantified",
+        desc:"Separate switches and circuits per deck, dimmable to 5%, with an automatic curfew and four lighting scenes." },
+      { id:"lt-3", name:"Motorized drapery at NW102 + NW103", tier:3, scores:[1,1,2,3],
+        cost:{mid:8250, lo:4500, hi:12000}, carbonText:"not quantified",
+        desc:"Blackout-lined drapery on a scene or astronomical clock keeps the south glass from glowing like a lantern. Also adds night insulation and bedroom privacy. Needs ceiling pockets and power before drywall." }
+    ]},
+  { id:"healthy", status:"review", mode:"one", defaults:["hm-b"],
+    name:"Healthy materials", sub:"Clean air and honest chemistry",
+    blurb:"What gets bought matters most in a tight house. Verification level is a later conversation.",
+    options:[
+      { id:"hm-a", name:"A. Code floor (baseline)", scores:[0,1,0,0],
+        costText:"baseline", carbonText:"not quantified",
+        desc:"Products that meet legal minimums, with no extra checking." },
+      { id:"hm-b", name:"B. Healthy Materials package", tier:1, scores:[1,2,2,1],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Low-emitting panels, insulation, sealants, paints and flooring, with third-party documentation. Many products cost about the same as conventional ones." },
+      { id:"hm-c", name:"C. Package + planned ventilation run", tier:2, scores:[1,2,2,2],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Adds a scheduled run of fans and heat after finishes and before move-in, logged." },
+      { id:"hm-d", name:"D. Package + flush-out or air test", tier:3, scores:[1,2,2,2],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Adds a formal flush-out or third-party air sampling before move-in." }
+    ]},
+  { id:"solar", status:"review", mode:"one", defaults:["pv-a"],
+    name:"Solar", sub:"Net-metered rooftop or ground array, CORE Electric",
+    blurb:"Solar-ready wiring is an easy win. Panels are sized to your actual use under the 10 kW net-metering cap.",
+    options:[
+      { id:"pv-a", name:"A. Solar-ready wiring", tier:1, scores:[1,2,1,0],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Conduit, panel capacity and roof access built in now, so panels can come later without opening finished walls." },
+      { id:"pv-b", name:"B. Rooftop solar, up to 10 kW", tier:3, scores:[3,2,1,1],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Strong sun and little shade at this site. Layout works around the louvers and awning, and the engineer checks roof loading." },
+      { id:"pv-c", name:"C. Ground-mount, up to 10 kW", tier:3, scores:[3,2,1,1],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"Same cap as rooftop. Adds trenching and wildfire clearances and sits near the restoration slope." },
+      { id:"pv-d", name:"D. Tracking ground-mount", tier:3, scores:[3,1,0,0],
+        costText:"not yet priced", carbonText:"not quantified",
+        desc:"More output per kW, but wind, slope and bedrock work against it. Not recommended." }
+    ]},
+  { id:"battery", status:"review", mode:"one", defaults:[],
+    name:"Battery storage", sub:"Add-on to rooftop or ground solar",
+    blurb:"A resilience and values choice: keeps the well pump, refrigeration and heating controls running through outages. It adds no energy savings under net metering.",
+    options:[
+      { id:"bat-e", name:"E. Battery for essential loads", tier:3, scores:[1,3,1,0],
+        cost:{mid:13750, lo:11500, hi:16000}, carbonText:"not quantified",
+        desc:"One wall battery, roughly. Also trims the evening peak-demand charge. No battery rebate was found." }
+    ]},
+  { id:"landscape", status:"review", draft:true, mode:"many", defaults:["ls-1","ls-2","ls-3","ls-4"],
+    name:"A thriving native landscape", sub:"Master planting brief, all zones",
+    blurb:"Lens scores here are SALT first-draft judgments, not yet reviewed. Costs and carbon have not been quantified.",
+    options:[
+      { id:"ls-1", name:"No pesticides on planted areas", tier:1, scores:[NA_SITE,1,3,1], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"A simple house rule that protects bees, butterflies, birds and the water downstream." },
+      { id:"ls-2", name:"Bare gravel nesting patches", tier:1, scores:[NA_SITE,1,3,1], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"A few intentionally untidy spots for ground-nesting native bees and for Rocky Mountain phacelia to sprout." },
+      { id:"ls-3", name:"Selective, distanced stone gathering", tier:1, scores:[NA_SITE,2,2,1], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"Site stone gathered sparingly and never from the seep or creek." },
+      { id:"ls-4", name:"Natural regrowth beyond the fire zones", tier:1, scores:[NA_SITE,2,3,2], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"The Douglas-fir and ninebark forest is left to regrow on its own." },
+      { id:"ls-5", name:"North Gardens with biochar", tier:2, scores:[NA_SITE,1,3,3], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"Color and pollinators close to the house. The one garden set aside for people and wildlife, with pets kept out." },
+      { id:"ls-6", name:"Southern Slope native seeding + erosion control", tier:2, scores:[NA_SITE,2,3,2], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"Holds the thin soil, softens the step from the decks to the trails, and supports the Pawnee montane skipper and bumble bees." },
+      { id:"ls-7", name:"Southwest Wild Garden drifts of bloom", tier:2, scores:[NA_SITE,1,3,3], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"Broad drifts designed to be watched from the Alpaca Deck, with something in flower from spring through fall." },
+      { id:"ls-8", name:"Kitchen herb edge by the cooking deck", tier:2, scores:[NA_SITE,1,2,3], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"Herbs and bergamot in gravel beds set back from the deck." },
+      { id:"ls-9", name:"Road screen + northeast visual breaks", tier:2, scores:[NA_SITE,1,2,2], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"A layered screen of evergreens, tall shrubs and a few aspen. A patience game of 10 to 15 years." },
+      { id:"ls-10", name:"Seep protection + restoration", tier:3, scores:[NA_SITE,2,3,2], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"A construction no-go buffer and native wetland plants, guided by a wetlands consultant." },
+      { id:"ls-11", name:"Rare-plant habitat stewardship", tier:3, scores:[NA_SITE,2,3,2], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"Open gravelly ground and local seed for Front Range milkvetch and Rocky Mountain phacelia, with a spring plant walk." },
+      { id:"ls-12", name:"Monarch nursery (butterfly weed in the North Gardens)", tier:3, scores:[NA_SITE,0,2,2], draft:true, costText:"not yet quantified", carbonText:"not quantified",
+        desc:"Gives monarch caterpillars a place to feed if monarchs find it. Accepts a contained toxic-plant risk." }
+    ]}
+];
+
+// ───────────── WEIGHTING (v4) ─────────────
+// Group weight 1-3: how much each choice counts toward the whole-house score (draft, approved by Tim 2026-10-12).
+const WEIGHTS = { glazing:3, airseal:3, newroof:3, windows:3, solar:3, exroof:2, walls:2, mgw:2, healthy:2, landscape:2,
+                  stone:1, cladding:1, lighting:1, battery:1 };
+// Significance 1-3 (small, meaningful, major) of each option inside a stacking ("choose any") group.
+// A pick earns its share of the group's lens ceiling in proportion to significance x lens score.
+const SIG = { "air-1":3,"air-2":2, "lt-1":2,"lt-2":1,"lt-3":1,
+  "ls-1":1,"ls-2":1,"ls-3":1,"ls-4":3,"ls-5":2,"ls-6":3,"ls-7":2,"ls-8":1,"ls-9":2,"ls-10":3,"ls-11":2,"ls-12":1 };
+GROUPS.forEach(g=>{ g.weight=WEIGHTS[g.id]||1; g.options.forEach(o=>{ if(g.mode==="many") o.sig=SIG[o.id]||1; }); });
+
+
+const LENSES=[
+ {k:0,label:"L1  Energy & Carbon",short:"Energy",color:"#c9942a"},
+ {k:1,label:"L2  Longevity & Circular",short:"Longevity",color:"#7a9060"},
+ {k:2,label:"L3  Regenerative Design",short:"Regenerative",color:"#4a2e10",hc:"#b8844a"},
+ {k:3,label:"L4  Biophilic Design",short:"Biophilic",color:"#a88858"}
+];
+const $=s=>document.querySelector(s);
+const fmt=n=>"$"+Math.round(n).toLocaleString("en-US");
+const isNum=v=>typeof v==="number";
+const isNA=v=>!!(v&&v.na);
+const r1=n=>Math.round(n*10)/10;
+// Item score /12. N/A lenses are skipped and the sum is rescaled (sum / applicable lenses * 4).
+// A lens with no data yet (null) is NOT N/A: the item is "incomplete" and gets no total.
+function itemScore(o){
+  if(!o.scores) return {state:"none"};
+  const app=o.scores.filter(v=>!isNA(v)); if(!app.length) return {state:"na"};
+  if(app.some(v=>!isNum(v))) return {state:"incomplete"};
+  const sum=app.reduce((a,b)=>a+b,0);
+  return {state:"ok",val:sum/app.length*4,rescaled:app.length<4};
+}
+const total=o=>{const s=itemScore(o);return s.state==="ok"?s.val:null;};
+const fmtScore=x=>{const v=r1(x);return Number.isInteger(v)?String(v):v.toFixed(1);};
+const scoreColor=n=>{n=r1(n);return n>=11?"#5e7a48":n>=9?"#7a9060":n>=5?"#c9942a":"#9a8c7a";};
+const tierName=n=>{n=r1(n);return n>=11?"n++":n>=9?"n+":n>=5?"n0":"n-";};
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// state: group id -> array of selected option ids
+const state={}; GROUPS.forEach(g=>state[g.id]=[...g.defaults]);
+const open=new Set();
+
+function select(g,id){
+  const cur=state[g.id];
+  if(g.mode==="many"){ state[g.id]=cur.includes(id)?cur.filter(x=>x!==id):[...cur,id]; }
+  else { state[g.id]=cur.includes(id)?[]:[id]; }
+  render();
+}
+
+function selected(){
+  const out=[];
+  GROUPS.forEach(g=>g.options.forEach(o=>{ if(state[g.id].includes(o.id)) out.push({g,o}); }));
+  return out;
+}
+
+const SIGLAB={1:"small",2:"meaningful",3:"major"};
+// Group-level lens scores. Pick-one groups score as the chosen option. Stacking groups: each lens has a ceiling (the best
+// score any option gets); a pick earns ceiling x (significance x lens score) / (same sum over all options).
+function groupScores(g,ids){
+  const sel=g.options.filter(o=>ids.includes(o.id)&&o.scores&&o.scores.some(isNum));
+  if(!sel.length) return null;
+  if(g.mode!=="many") return sel[0].scores;
+  const all=g.options.filter(o=>o.scores);
+  return [0,1,2,3].map(k=>{
+    const nums=all.filter(o=>isNum(o.scores[k]));
+    if(!nums.length) return all.every(o=>isNA(o.scores[k]))?{na:true}:null;
+    const ceil=Math.max(...nums.map(o=>o.scores[k])), w=o=>(o.sig||1)*o.scores[k];
+    const den=nums.reduce((a,o)=>a+w(o),0), num=sel.filter(o=>isNum(o.scores[k])).reduce((a,o)=>a+w(o),0);
+    return den?ceil*num/den:0;
+  });
+}
+function score12(s){ if(!s) return null; const app=s.filter(v=>!isNA(v)); if(!app.length||app.some(v=>!isNum(v))) return null; return app.reduce((a,b)=>a+b,0)/app.length*4; }
+
+function compute(){
+  const sel=selected();
+  const scored=sel.filter(x=>x.o.scores&&x.o.scores.some(isNum));
+  // Whole-house score, lens first: each lens = weighted average over the selected choices (groups) it applies to.
+  // Circle = sum of the four lens averages. A lens no selected choice covers contributes 0 (no rescale).
+  const gsel=GROUPS.map(g=>({g,s:groupScores(g,state[g.id])})).filter(x=>x.s&&x.s.some(isNum));
+  const lens=LENSES.map(l=>{
+    const it=gsel.filter(x=>isNum(x.s[l.k]));
+    const den=it.reduce((a,x)=>a+x.g.weight,0);
+    const unsel=[]; GROUPS.forEach(g=>g.options.forEach(o=>{ if(!state[g.id].includes(o.id)&&o.scores&&isNum(o.scores[l.k])) unsel.push(o); }));
+    return {...l,n:it.length,avg:den?it.reduce((a,x)=>a+x.g.weight*x.s[l.k],0)/den:null,unsel:unsel.length};
+  });
+  const ngroups=gsel.length;
+  const avg=gsel.length?lens.reduce((a,l)=>a+(l.avg||0),0):0;
+  const sum=avg;
+  let cmid=0,clo=0,chi=0,priced=0,partial=0;
+  sel.forEach(x=>{ const c=x.o.cost; if(c&&c.mid!=null){cmid+=c.mid;clo+=c.lo;chi+=c.hi;priced++; if(c.partial)partial++;} });
+  let tmid=0,tlo=0,thi=0,carbN=0,bhi=0,blo=0; const cg=[];
+  sel.forEach(x=>{ const t=x.o.carbonT; if(t){
+    tmid+=t.mid;tlo+=t.lo;thi+=t.hi;carbN++;
+    const mids=x.g.options.filter(o=>o.carbonT).map(o=>o.carbonT.mid);
+    bhi+=Math.max(...mids); blo+=Math.min(...mids); cg.push(x.g.cshort||x.g.name); } });
+  return {sel,scored,ngroups,sum,avg,lens,cmid,clo,chi,priced,partial,tmid,tlo,thi,carbN,bhi,blo,cg};
+}
+
+function solarYears(tons){ // years of output from the project's reference solar array that equal `tons` of CO2e
+  const s=PROJECT.solar; if(!s) return null;
+  const perYear=s.panels*s.panelKW*s.kWhPerKWyr*s.kgPerKWh/1000; // metric tons per year
+  const yrs=tons/perYear;
+  return yrs<1.5?`about ${Math.max(1,Math.round(yrs*12))} months`:`about ${yrs.toFixed(1)} years`;
+}
+function carbonTile(c){
+  const tip="Embodied (upfront, cradle-to-gate) carbon saved, compared with choosing the highest-carbon option in each group that has a tonnage estimate.";
+  if(!c.carbN) return `<div class="tile carbbox" title="${tip}"><div class="big">–</div><div class="lab">embodied carbon saved by your picks</div><div class="sub">Pick a roof or wall option to see its carbon.</div></div>`;
+  const maxSave=c.bhi-c.blo, saved=Math.max(0,c.bhi-c.tmid), pct=maxSave>0?Math.max(0,Math.min(100,saved/maxSave*100)):0;
+  const f1=n=>n.toFixed(1);
+  const sol=PROJECT.solar&&saved>0.05?` That is ${solarYears(saved)} of output from a ${PROJECT.solar.arrayLabel}.`:"";
+  return `<div class="tile carbbox" title="${tip}">
+    <div class="big">${saved>0.05?"~"+f1(saved):"0"} tons<small>CO₂e saved</small></div>
+    <div class="lab">embodied carbon saved by your picks, compared with the highest-carbon option in each group · metric tons</div>
+    <div class="cbar"><i style="width:${pct}%"></i><b style="left:${pct}%"></b></div>
+    <div class="cends"><span>none saved</span><span>most possible ${f1(maxSave)}</span></div>
+    <div class="sub">${saved>0.05?`Your picks save <b>${f1(saved)} tons</b>.${sol}`:"Your picks match the highest-carbon option in every group."}</div>
+    <div class="sub2">Your picks embody about ${f1(c.tmid)} tons (range ${f1(c.tlo)} to ${f1(c.thi)}). Counts ${c.cg.join(", ")} only; other strategies have no tonnage yet.</div>
+  </div>`;
+}
+
+function renderHead(c){
+  $("#projName").innerHTML=esc(PROJECT.name)+"<small>"+esc(PROJECT.place)+"<br>"+esc(PROJECT.clients)+"</small>";
+  const col=scoreColor(c.avg);
+  $("#tiles").innerHTML=
+   `<div class="tile"><div class="circle" style="background:${col}"><b>${c.ngroups?fmtScore(c.avg):"–"}</b><i>/ 12</i></div>
+      <div class="lab">whole-house [n+] score</div><div class="sub">${c.ngroups?"tier "+tierName(c.avg)+" · ":""}${c.scored.length} scored</div></div>
+    <div class="tile"><div class="circle" style="background:var(--adobe)"><b>${c.sel.length}</b></div>
+      <div class="lab">strategies selected</div><div class="sub">${c.sel.length-c.scored.length} not yet scored</div></div>
+    <div class="tile costbox"><div class="big">${fmt(c.cmid)}</div>
+      <div class="rng">${fmt(c.clo)} to ${fmt(c.chi)}</div>
+      <div class="lab">rough added cost, midpoint</div>
+      <div class="sub">${c.priced} of ${c.sel.length} priced${c.partial?" · "+c.partial+" partial":""}</div></div>
+    ${carbonTile(c)}`;
+  $("#lensgrid").innerHTML=c.lens.map(l=>{
+    let sub="", val="–", w=0;
+    if(c.ngroups){
+      if(l.avg==null){ sub=`no pick yet${l.unsel?" · "+l.unsel+" option"+(l.unsel>1?"s":"")+" not selected":""}`; }
+      else { val=l.avg.toFixed(1); w=l.avg/3*100; sub=`based on ${l.n} of ${c.ngroups} choice${c.ngroups>1?"s":""}`; }
+    }
+    return `<div class="lrow"><div class="n">${l.label}<small>${sub}</small></div><div class="tr"><div style="width:${w}%;background:${l.hc||l.color}"></div></div><div class="v">${val}</div></div>`;}).join("");
+}
+
+function optRow(g,o){
+  const on=state[g.id].includes(o.id), isOpen=open.has(o.id);
+  const is=itemScore(o), tot=is.val;
+  const lensHtml=o.scores?LENSES.map(l=>{ const v=o.scores[l.k];
+    if(isNA(v)) return `<div class="lens"><span class="d" style="background:${l.color}"></span><span class="na" title="${esc(l.short+": "+(v.why||"does not apply to this item"))}">N/A</span><span class="n"></span></div>`;
+    if(!isNum(v)) return `<div class="lens" title="${l.label}"><span class="d" style="background:${l.color}"></span><div class="b"></div><span class="n">–</span></div>`;
+    return `<div class="lens" title="${l.label}"><span class="d" style="background:${l.color}"></span><div class="b"><i style="width:${v/3*100}%;background:${l.color}"></i></div><span class="n">${v}</span></div>`;}).join(""):`<div class="gsub">not yet scored</div>`;
+  const scoreHtml=is.state==="ok"?`<div class="num" style="color:${scoreColor(tot)}">${fmtScore(tot)}</div><div class="of">/ 12${o.draft?"†":""}</div>`
+    :is.state==="incomplete"?`<div class="na">–</div><div class="inc">incomplete</div>`
+    :is.state==="na"?`<div class="na">N/A</div>`:`<div class="na">—</div>`;
+  const nawhy=o.scores?LENSES.filter(l=>isNA(o.scores[l.k])).map(l=>`<div class="nawhy"><b>${l.short}: not applicable.</b> ${esc(o.scores[l.k].why||"This lens does not apply to this item.")}</div>`).join(""):"";
+  let costHtml;
+  if(o.cost&&o.cost.mid!=null) costHtml=`<div class="m">${fmt(o.cost.mid)}</div><div class="r">${fmt(o.cost.lo)} to ${fmt(o.cost.hi)}</div>${o.cost.partial?'<div class="pt">cavity only</div>':""}`;
+  else if(o.cost&&o.cost.ref!=null) costHtml=`<div class="m">${fmt(o.cost.ref)}</div><div class="r">${esc(o.cost.refNote)}</div>`;
+  else if(o.cost&&o.cost.perSf) costHtml=`<div class="m" style="font-size:11px">${esc(o.cost.perSf)}</div><div class="r">area to confirm</div>`;
+  else costHtml=`<div class="tx">${esc(o.costText||"not yet priced")}</div>`;
+  let carbHtml;
+  if(o.carbonT) carbHtml=`<div class="m">~${o.carbonT.mid.toFixed(1)} tons</div><div class="r">${o.carbonT.lo===o.carbonT.hi?"single estimate":o.carbonT.lo.toFixed(1)+" to "+o.carbonT.hi.toFixed(1)+" tons CO₂e"}</div>`;
+  else carbHtml=`<div class="tx">${esc(o.carbonText||"not quantified")}</div>`;
+  const tier=o.tier?`<span class="chip t${o.tier}">Tier ${o.tier}</span>`:"";
+  const sg=(g.mode==="many"&&o.sig)?`<span class="chip sigc" title="How much this pick counts toward its group\'s score">${SIGLAB[o.sig]} share</span>`:"";
+  const dr=o.draft?`<span class="chip draft">SALT draft score</span>`:"";
+  return `<div class="opt ${on?"sel":""} ${isOpen?"open":""}" data-g="${g.id}" data-o="${o.id}">
+    <div class="optmain">
+      <div class="ctl ${g.mode==="many"?"check":"radio"}" data-pick="1"></div>
+      <div class="nm"><div class="oname">${esc(o.name)}</div><div class="ometa">${tier}${sg}${dr}<span class="exp" data-exp="1">${isOpen?"− less":"+ details"}</span></div></div>
+      <div class="lenses">${lensHtml}</div>
+      <div class="score">${scoreHtml}</div>
+      <div class="cost">${costHtml}</div>
+      <div class="carb">${carbHtml}</div>
+    </div>
+    <div class="more">${esc(o.desc)}${nawhy}</div>
+  </div>`;
+}
+
+function groupHtml(g){
+  const chips=(g.status==="approved"?'<span class="chip approved">Approved</span>':'<span class="chip review">For review</span>')+(g.revisited?'<span class="chip rev">Being revisited</span>':"")+(g.draft?'<span class="chip draft">Draft scores</span>':"")+`<span class="chip wt" title="How much this choice counts toward the whole-house score, 1 (small) to 3 (major)">Weight ${g.weight}</span>`;
+  let gsc="";
+  if(g.mode==="many"){ const mine=score12(groupScores(g,state[g.id])), top=score12(groupScores(g,g.options.map(o=>o.id)));
+    gsc=`<div class="gscore">${mine==null?"No picks yet":"Your picks here: <b>"+fmtScore(mine)+" / 12</b>"} · all options together: ${top==null?"–":fmtScore(top)+" / 12"}</div>`; }
+  const pick=g.mode==="many"?"Choose any that apply":"Choose one";
+  const nonesel=state[g.id].length===0&&g.mode==="one"?'<span class="gsub"> · none selected</span>':"";
+  return `<div class="group" id="g-${g.id}">
+    <div class="ghead"><div class="top"><span class="gname">${esc(g.name)}</span>${chips}</div>
+      <div class="gsub">${esc(g.sub)} · ${pick}${nonesel}</div>
+      <div class="gblurb">${esc(g.blurb)}</div>${gsc}</div>
+    <div class="cols"><div></div><div>Option</div><div>Four lenses</div><div style="text-align:center">Score</div><div style="text-align:center">Rough cost</div><div style="text-align:center">Embodied carbon</div></div>
+    ${g.options.map(o=>optRow(g,o)).join("")}
+  </div>`;
+}
+
+function renderStrat(){
+  const ap=GROUPS.filter(g=>g.status==="approved"), rv=GROUPS.filter(g=>g.status!=="approved");
+  $("#tab-strat").innerHTML=
+  `<div class="legend"><b>How to use this page.</b> Click an option to include it. Totals above update as you go. Click “+ details” for the reasoning.
+    <div class="row"><span><span class="chip t1">Tier 1</span> easy win, little extra</span><span><span class="chip t2">Tier 2</span> worth a conversation</span><span><span class="chip t3">Tier 3</span> bigger commitment, bigger reward</span></div>
+    <div class="row"><span><span class="chip approved">Approved</span> agreed by clients, contractor and SALT</span><span><span class="chip review">For review</span> proposed, not yet decided</span></div>
+    <div class="row"><span>Score out of 12:</span><span><span class="chip nm">n-</span> 0 to 4</span><span><span class="chip n0">n0</span> 5 to 8</span><span><span class="chip np">n+</span> 9 to 10</span><span><span class="chip npp">n++</span> 11 to 12</span></div></div>
+  <div class="section-h">Approved <span class="ct">${ap.length}</span></div>${ap.map(groupHtml).join("")}
+  <div class="section-h">For review <span class="ct">${rv.length}</span></div>${rv.map(groupHtml).join("")}
+  <div class="note"><strong>Reading the numbers.</strong> Scores are out of 12 (four lenses, 0 to 3 each). † SALT first-draft score, not yet reviewed. N/A means a lens cannot apply to that item (for example, buried concrete has no biophilic side); it is left out of the item\'s score, not counted as a zero. Costs are rough, unquoted allowances shown as a midpoint with a range; “not yet priced” items are left out of the cost total. Embodied carbon is a cradle-to-gate estimate in metric tons of CO₂e (1 metric ton is about 1.1 US tons); items given per square foot or per square meter, and items awaiting product data, are shown in the row but left out of the carbon total until areas and product-specific data are confirmed.
+  <br><a href="${PROJECT.folderUrl}" target="_blank" rel="noreferrer">Project sustainability folder →</a></div>`;
+}
+
+function renderRead(){
+  $("#tab-read").innerHTML=`
+  <div class="card"><h3>What this dashboard is</h3>Pine Country Lane has many sustainability choices in play at once. This page puts them side by side so you can see how each one scores, what it asks of the project, and how your picks add up. It is a conversation tool: nothing you click is saved, and nothing here changes the drawings.</div>
+  <div class="card"><h3>The four lenses</h3><ul>
+   <li><b>L1 Energy &amp; Carbon.</b> Does this reduce operational and embodied carbon?</li>
+   <li><b>L2 Longevity &amp; Circular Economy.</b> Will it last, and can the materials be recovered or safely returned to nature?</li>
+   <li><b>L3 Regenerative Design.</b> Does it nourish the living systems of this place: ecological, social and community?</li>
+   <li><b>L4 Biophilic Design.</b> Does it connect people to nature in ways that support health and wellbeing?</li></ul>
+   Each lens is scored 0 to 3, for a total out of 12. Where a lens cannot apply to an item at all, it shows <b>N/A</b> and is left out of that item\'s score: the other lenses are scaled to the same 12-point total, so a perfect item stays 12 out of 12.</div>
+  <div class="card"><h3>Score tiers: n-, n0, n+, n++</h3>A strategy's total out of 12 places it on the project scale:
+   <ul><li><b>n-</b>, 0 to 4. Works against the project's goals.</li>
+   <li><b>n0</b>, 5 to 8. Neutral to modestly positive.</li>
+   <li><b>n+</b>, 9 to 10. Net-positive: gives back more than it takes.</li>
+   <li><b>n++</b>, 11 to 12. Strongly net-positive.</li></ul>
+   The large circle at the top is the whole-house score. Each choice on the page (roofs, windows, solar, landscape and so on) counts once. For each lens we take a weighted average over the choices it applies to, and the circle is the sum of those four averages, out of 12. The lens bars beneath show each average and how many choices it is based on.
+   <br><br><b>A lens nothing you picked covers counts as zero.</b> If none of your picks addresses a lens, it shows "no pick yet" and the whole-house score tops out at 9. That is deliberate: the top of the scale is a reward for choosing strategies across all four lenses, and the line under each empty lens says how many options you have not selected that would cover it.</div>
+  <div class="card"><h3>How choices are weighted</h3>A small win should not count as much as a big one, so each choice carries a weight from 1 (small) to 3 (major). These are SALT's working judgments for this project and are open to discussion.
+   <ul>${[3,2,1].map(w=>`<li><b>Weight ${w}:</b> ${GROUPS.filter(g=>g.weight===w).map(g=>esc(g.name.replace(/ \(.*$/,""))).join("; ")}</li>`).join("")}</ul>
+   <br>Where several strategies stack in one choice (landscape, air sealing, lighting), each strategy is marked a small, meaningful or major share. Each lens has a ceiling, the best any strategy in that choice reaches, and every pick earns its share of it. One small pick moves the score a little; picking everything earns the full ceiling. "Your picks here" under each stacking choice shows where you stand.
+   <br><br>Some lenses do not apply to some strategies. Energy &amp; Carbon, for example, is marked N/A for landscape and site strategies and is left out of their score.</div>
+  <div class="card"><h3>The carbon counter</h3>The number at the top is the <b>embodied carbon your choices save</b>. Embodied carbon is the greenhouse gas released making and delivering materials, before they reach the site. For each group that has a tonnage estimate, we compare your pick with the highest-carbon option in that group, and add up the difference. It is shown in metric tons of CO₂e (1 metric ton is about 1.1 US tons).
+   <ul><li><b>What it counts.</b> Only strategies with a tonnage estimate so far (${GROUPS.filter(g=>g.options.some(o=>o.carbonT)).map(g=>esc(g.cshort||g.name)).join(", ")}). Everything else shows "not quantified" and is left out.</li>
+   <li><b>The bar.</b> Runs from nothing saved (the highest-carbon option in every group) to the most that could be saved (the lowest-carbon option in every group). The white marker is where your picks sit. The small line beneath gives the carbon your picks embody.</li>
+   <li><b>The solar comparison.</b> ${PROJECT.solar?`We express savings as output from a ${esc(PROJECT.solar.arrayLabel)}: ${esc(PROJECT.solar.basis)} It ignores the carbon of making the panels, and a cleaner grid will reduce what each panel offsets over time, so treat it as a sense of scale.`:"Not shown for this project."}</li>
+   <li><b>Not included.</b> Energy used over the life of the house, carbon stored in wood, and anything with no estimate yet.</li></ul></div>`;
+}
+
+function renderSrc(){
+  $("#tab-src").innerHTML=`
+  <div class="card"><h3>Where the numbers come from</h3>Each strategy draws on a SALT analysis for this project, stored in the sustainability folder. Costs are rough 2026 Colorado mountain allowances that have not been quoted. Embodied carbon figures are estimates from published ranges and library data; manufacturer environmental product declarations (EPDs) are being requested and may not exist for every product. Where an analysis is still being developed, the midpoint of its range is used.</div>
+  <div class="card"><h3>Known limits of this early version</h3><ul>
+   <li>Carbon figures for roofs and walls come from different library tables and have not yet been reconciled with product-specific data.</li>
+   <li>The wall cost covers the cavity insulation only. The board outside the sheathing still needs a quote.</li>
+   <li>Siding and stone areas are still being confirmed, so those carbon and cost figures are shown per unit and not added up.</li>
+   <li>Wood cladding carbon includes stored (biogenic) carbon; SALT practice is to report that separately.</li>
+   <li>Window figures are placeholders from a July comparison; the moving glass wall comparison has scores but only one reference price (a lapsed NanaWall quote that is not added to the cost total). NanaWall performance must be confirmed at the site elevation of about 8,500 ft.</li>
+   <li>Landscape scores are SALT first drafts. Landscape costs and carbon are not yet quantified.</li></ul></div>
+  <div class="card"><h3>Analyses used</h3><ul>
+   <li>Glazing &amp; shading performance analysis (June 2026)</li>
+   <li>Exterior cladding: Telluride Stone cut sheet; fire-resistant nickel gap siding cut sheet (October 2026)</li>
+   <li>Existing envelope: air sealing, with BP_008 Airtight Construction (October 2026)</li>
+   <li>New roofs and existing roofs: insulation strategy comparisons (October 2026)</li>
+   <li>Wall insulation: cavity + continuous insulation (October 2026)</li>
+   <li>Window glazing and moving glass wall comparisons (July 2026)</li>
+   <li>Dark-sky + hearth lighting; Healthy Materials brief; Solar + Storage brief (October 2026)</li>
+   <li>A Thriving Native Landscape master planting brief (October 2026)</li></ul>
+   <a href="${PROJECT.folderUrl}" target="_blank" rel="noreferrer">Open the sustainability folder →</a></div>`;
+}
+
+function render(){ const c=compute(); renderHead(c); renderStrat(); }
+document.addEventListener("click",e=>{
+  const row=e.target.closest(".opt"); if(!row) return;
+  const g=GROUPS.find(x=>x.id===row.dataset.g), o=g.options.find(x=>x.id===row.dataset.o);
+  if(e.target.closest("[data-exp]")){ open.has(o.id)?open.delete(o.id):open.add(o.id); render(); return; }
+  select(g,o.id);
+});
+$("#tabs").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));
+  ["strat","read","src"].forEach(t=>$("#tab-"+t).classList.toggle("hide",t!==b.dataset.t));
+});
+renderRead(); renderSrc(); render();
+</script>
+</body>
+</html>
