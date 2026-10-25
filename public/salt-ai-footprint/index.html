@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SALT AI Footprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: dark earth masthead, three side-by-side scenarios (low / mid / high), then sources and options.
+   Look follows the SALT client dashboards: earth, adobe, corten, sage. */
+:root{
+  --bg:#faf7f2; --card:#ffffff; --cream:#f5f0e8; --line:#e6ddd0;
+  --ink:#2e1e0c; --bark:#4a2e10; --dust:#8a7c68;
+  --adobe:#a88858; --corten:#b5801c; --sage:#5f7a47;
+  --mast:#2e1e0c; --mastink:#f5f0e8; --mastsub:#c2a878;
+  --warn:#b5801c;
+  --display:'Antonio','Arial Narrow',Impact,sans-serif; --mono:'Space Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17110a; --card:#241a0f; --cream:#2c2012; --line:#3e2e1c;
+  --ink:#f2eadb; --bark:#e0d0b4; --dust:#a99a82;
+  --adobe:#c4a572; --corten:#d9a640; --sage:#9bb67f;
+  --mast:#0f0b06; --mastink:#f5f0e8; --mastsub:#c2a878; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17110a; --card:#241a0f; --cream:#2c2012; --line:#3e2e1c;
+  --ink:#f2eadb; --bark:#e0d0b4; --dust:#a99a82;
+  --adobe:#c4a572; --corten:#d9a640; --sage:#9bb67f;
+  --mast:#0f0b06; --mastink:#f5f0e8; --mastsub:#c2a878; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.6;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+.mast{background:var(--mast);color:var(--mastink)}
+.mast .wrap{padding-block:26px 22px}
+.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mastsub)}
+h1{font-family:var(--display);font-weight:700;font-size:38px;line-height:1.05;margin:6px 0 8px;text-wrap:balance}
+.mast p{margin:0;max-width:62ch;color:var(--mastsub);font-size:12px}
+.pill{display:inline-block;margin-top:12px;font-size:10px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--corten);color:var(--corten);border-radius:10px;padding:2px 10px}
+main{padding-block:22px 40px}
+h2{font-family:var(--display);font-size:22px;font-weight:700;border-bottom:3px solid var(--adobe);padding-bottom:4px;margin:30px 0 12px;text-wrap:balance}
+h2:first-child{margin-top:0}
+.ctrls{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px 22px;background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.ctrl label{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--bark)}
+.ctrl label b{color:var(--ink)}
+.ctrl input[type=range]{width:100%;accent-color:var(--corten);margin:6px 0 0}
+.ctrl small{display:block;color:var(--dust);font-size:10px;line-height:1.4}
+.scen{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;min-width:0}
+.sc.mid{border-color:var(--corten);border-width:2px}
+.sc .tag{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--adobe)}
+.sc .hero{font-family:var(--display);font-size:46px;line-height:1.05;color:var(--ink);margin:4px 0 0}
+.sc .hero small{font-family:var(--mono);font-size:11px;color:var(--dust);margin-left:6px}
+.sc .lab{font-size:11px;color:var(--bark);margin-bottom:10px}
+.sc dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:11px}
+.sc dt{color:var(--dust)} .sc dd{margin:0;text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.sc .basis{margin-top:10px;font-size:10px;color:var(--dust);line-height:1.5}
+.note{font-size:11px;color:var(--dust);margin:10px 0 0}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:11.5px}
+th{font-weight:400;text-align:left;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--dust);border-bottom:1px solid var(--line);padding:8px 12px;background:var(--cream)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+a{color:var(--corten);text-underline-offset:2px}
+.chip{display:inline-block;font-size:9px;letter-spacing:.8px;text-transform:uppercase;border-radius:9px;padding:1px 8px;white-space:nowrap}
+.chip.src{background:var(--sage);color:#fff} .chip.est{border:1px dashed var(--corten);color:var(--corten)} .chip.gap{border:1px solid var(--dust);color:var(--dust)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px 15px;min-width:0}
+.opt h3{font-family:var(--display);font-size:18px;margin:0 0 4px}
+.opt p{margin:6px 0 0;font-size:11.5px}
+.opt .meta{font-size:10.5px;color:var(--dust)}
+.lim{background:var(--cream);border:1px solid var(--line);border-left:4px solid var(--adobe);border-radius:6px;padding:12px 16px}
+.lim ul{margin:6px 0 0;padding-left:18px} .lim li{margin:3px 0}
+footer{font-size:10.5px;color:var(--dust);margin-top:26px}
+:focus-visible{outline:2px solid var(--corten);outline-offset:2px}
+@media (max-width:560px){h1{font-size:30px}.sc .hero{font-size:40px}}
+</style>
+</head>
+<body>
+
+<header class="mast"><div class="wrap">
+  <div class="eyebrow">SALT Workshop · Studio sustainability · SP exploratory draft</div>
+  <h1>SALT AI Footprint</h1>
+  <p>What it takes to offset the energy behind our Claude working sessions, and what each way of doing it would cost. Early numbers. Anthropic has not published energy figures, so every value here is a third-party estimate.</p>
+  <span class="pill">Exploratory · estimates, not measurements</span>
+</div></header>
+
+<main class="wrap">
+  <h2>Our working pattern</h2>
+  <div class="ctrls">
+    <div class="ctrl"><label for="spw">Sessions per week <b id="spwv"></b></label><input id="spw" type="range" min="1" max="10" step="1" value="5"><small>One session is about 4 hours, five days a week.</small></div>
+    <div class="ctrl"><label for="wpy">Working weeks per year <b id="wpyv"></b></label><input id="wpy" type="range" min="30" max="52" step="1" value="52"><small>52 counts every week of the year.</small></div>
+    <div class="ctrl"><label for="yrs">Years to cover <b id="yrsv"></b></label><input id="yrs" type="range" min="10" max="50" step="5" value="50"><small>Trees are planted once and counted over this span.</small></div>
+    <div class="ctrl"><label for="surv">Planted trees that survive <b id="survv"></b></label><input id="surv" type="range" min="40" max="100" step="5" value="100"><small>Set to 100% to match the survives-to-50 assumption. Lower it to see how many to plant.</small></div>
+  </div>
+
+  <div class="scen" id="scen" aria-live="polite"></div>
+  <p class="note">The three columns pair the low, middle and high estimates for energy use with the matching best, middle and worst tree growth. Moving a slider updates all three.</p>
+
+  <h2>Where the numbers come from</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Figure</th><th>Value used</th><th>Source</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Energy for one 4-hour agentic session</td><td class="n">1 / 2 / 3 kWh</td><td>SALT judgment, set between a median Claude Code session (about 0.6 kWh, range 0.25 to 1.2) and a heavy full day (about 3 kWh), both from <a href="https://www.theclimatebrink.com/p/the-real-energy-use-of-agentic-ai" target="_blank" rel="noreferrer">Hausfather</a>. A lower estimate of about 41 Wh for a short median session is in <a href="https://simonpcouch.com/blog/2026-01-20-cc-impact/" target="_blank" rel="noreferrer">Couch</a>.</td><td><span class="chip est">Estimate</span></td></tr>
+      <tr><td>Energy for a simple chat prompt, for scale</td><td class="n">0.24 Wh</td><td>Google's median Gemini text prompt, <a href="https://www.technologyreview.com/2025/08/21/1122288/google-gemini-ai-energy/amp/" target="_blank" rel="noreferrer">MIT Technology Review</a>. Agentic use is roughly 600 times this, per Hausfather.</td><td><span class="chip src">Published</span></td></tr>
+      <tr><td>Carbon per kWh</td><td class="n">0.34 / 0.40 / 0.47 kg</td><td>0.34 is the US average Hausfather uses (eGRID 2024). 0.47 is the Rocky Mountain figure on the PCL dashboard (eGRID 2023). 0.40 is the midpoint. Where the computing actually happens is not known.</td><td><span class="chip est">Placeholder</span></td></tr>
+      <tr><td>Carbon one tree takes up</td><td class="n">24 / 18 / 10 kg a year</td><td>The <a href="https://19january2021snapshot.epa.gov/energy/greenhouse-gas-equivalencies-calculator-revision-history_.html" target="_blank" rel="noreferrer">EPA</a> counts 0.060 t over the first 10 years for a medium-growth urban tree (about 6 kg a year). The 50-year averages here are SALT's own extrapolation for a tree that lives and grows well, lower for dry Colorado sites. No source yet.</td><td><span class="chip gap">Needs a source</span></td></tr>
+      <tr><td>Price of a verified removal credit</td><td class="n">$22 to $50 per tonne</td><td><a href="https://kb.tree-nation.com/knowledge/offset-tons" target="_blank" rel="noreferrer">Tree-Nation</a> lists projects from €6.67 to €45 a tonne (about $7.50 to $50). <a href="https://www.evertreen.com/news/how-much-do-carbon-offsets-cost" target="_blank" rel="noreferrer">Evertreen</a> puts reforestation removals at £20 to £40+ (about $27 to $53), and says a price far below that range is a question, not a bargain.</td><td><span class="chip src">Published</span></td></tr>
+      <tr><td>Solar output</td><td class="n">1,662 kWh per kW a year</td><td>PVWatts value already used in the PCL dashboard, with 0.4 kW panels.</td><td><span class="chip src">From PCL analysis</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Ways to offset it</h2>
+  <div class="opts">
+    <div class="opt"><h3>Solar on a SALT project or the studio</h3><div class="meta">Cuts emissions at the source</div><p>Our energy use is small enough that the yearly total is about the output of one panel. It is the easiest option to measure, because the meter shows what was produced. The counts above show the panel equivalent.</p></div>
+    <div class="opt"><h3>Colorado Tree Coalition, ReForest Colorado</h3><div class="meta">Local, direct donation</div><p>The <a href="https://csfs.colostate.edu/2022/07/26/fund-helps-colorado-communities-plant-trees-after-disasters/" target="_blank" rel="noreferrer">grant program</a> replants communities after wildfire and other disasters. It runs on donations at coloradotrees.org. It gives local and community benefit, but it reports trees, not tonnes of carbon, so it works as a co-benefit gift and not a carbon credit.</p></div>
+    <div class="opt"><h3>Tree-Nation</h3><div class="meta">Priced per tonne, certified projects</div><p>Offers projects under the Verified Carbon Standard and Plan Vivo, from about $7.50 to $50 a tonne (€6.67 to €45) and from 2 to 33 trees per tonne depending on the project. Its page does not describe how long the trees are protected, so ask before buying.</p></div>
+    <div class="opt"><h3>Engineered removal</h3><div class="meta">Permanent, much higher price</div><p>Direct air capture and similar methods cost far more per tonne than tree credits, according to Evertreen. They lock carbon away for a long time. Worth pricing when permanence matters more than cost.</p></div>
+  </div>
+
+  <h2>What to keep in mind</h2>
+  <div class="lim"><b>Read this as a first pass.</b>
+    <ul>
+      <li>Anthropic has not published per-session energy, so the kWh range is the widest part of this estimate. Published analyses put their own uncertainty at about a factor of two each way.</li>
+      <li>Only data-center electricity is counted. Training the model, building chips and data centers, and our own laptops and networks are left out.</li>
+      <li>Trees take up carbon slowly at first, so planting now does not cancel this year's use this year. A tree also has to survive and stay standing for the full span.</li>
+      <li>Forest credits have a mixed record. A study of California's forest offsets found <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9299598/" target="_blank" rel="noreferrer">systematic over-crediting</a> in one project type, so the credit type and verifier matter.</li>
+      <li>Solar avoids emissions that would otherwise happen. A tree removes carbon already emitted. They are different things and shouldn't be added together.</li>
+    </ul></div>
+  <footer>Draft for review. Prices are converted to US dollars at €1 = $1.1198 and £1 = $1.3371, the rates on October 24, 2026. Original euro and pound prices are in the sources. Sources checked October 2026.</footer>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+// per scenario: kWh per session, kg CO2e per kWh, kg a tree takes up per year (average over the span)
+const SC=[{k:"Low",kwh:1,gf:0.34,tree:24},{k:"Middle",kwh:2,gf:0.40,tree:18,mid:1},{k:"High",kwh:3,gf:0.4726,tree:10}];
+const EUR_USD=1.1198, GBP_USD=1.3371; // rates on 24 Oct 2026
+const PANEL_KWH=1662*0.4, PRICE=[20*EUR_USD,45*EUR_USD]; // USD per tonne, from EUR 20 to 45
+const f0=n=>Math.round(n).toLocaleString("en-US");
+const f1=n=>n.toLocaleString("en-US",{minimumFractionDigits:1,maximumFractionDigits:1});
+function calc(){
+  const spw=+$("spw").value, wpy=+$("wpy").value, yrs=+$("yrs").value, sv=+$("surv").value/100;
+  $("spwv").textContent=spw; $("wpyv").textContent=wpy; $("yrsv").textContent=yrs; $("survv").textContent=Math.round(sv*100)+"%";
+  const sessions=spw*wpy;
+  $("scen").innerHTML=SC.map(s=>{
+    const kwhYr=sessions*s.kwh, kgYr=kwhYr*s.gf, tons=kgYr*yrs/1000;
+    const need=kgYr/s.tree, plant=need/sv, panels=kwhYr/PANEL_KWH;
+    return `<div class="sc${s.mid?" mid":""}"><div class="tag">${s.k} estimate</div>
+      <div class="hero">${Math.ceil(plant)}<small>trees to plant</small></div>
+      <div class="lab">to cover ${yrs} years of use${sv<1?", allowing for losses":""}</div>
+      <dl><dt>Sessions per year</dt><dd>${f0(sessions)}</dd>
+      <dt>Electricity per year</dt><dd>${f0(kwhYr)} kWh</dd>
+      <dt>Carbon per year</dt><dd>${f0(kgYr)} kg CO₂e</dd>
+      <dt>Carbon over ${yrs} years</dt><dd>${f1(tons)} t CO₂e</dd>
+      <dt>Trees that must survive</dt><dd>${f1(need)}</dd>
+      <dt>Or solar equivalent</dt><dd>${panels<0.1?"under 0.1":f1(panels)} panel${panels>=1.5?"s":""}</dd>
+      <dt>Or verified credits</dt><dd>$${f0(tons*PRICE[0])} to $${f0(tons*PRICE[1])}</dd></dl>
+      <div class="basis">${s.kwh} kWh per session · ${s.gf} kg per kWh · ${s.tree} kg per tree per year</div></div>`;}).join("");
+}
+["spw","wpy","yrs","surv"].forEach(i=>$(i).addEventListener("input",calc));
+calc();
+</script>
+
+</body>
+</html>
